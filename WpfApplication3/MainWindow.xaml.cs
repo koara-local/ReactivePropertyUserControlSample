@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Reactive.Bindings;
 
 namespace WpfApplication3
 {
@@ -20,9 +21,15 @@ namespace WpfApplication3
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ReactiveProperty<string> Text { get; private set; } = new ReactiveProperty<string>();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            this.DataContext = this;
+
+            this.Text.Subscribe(x => Console.WriteLine("{0}: {1}", nameof(MainWindow), x));
         }
     }
 }

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WpfApplication3"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
+    <Grid x:Name="DirectBindingUserControlGrid">
+        <TextBox Text="{Binding Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </UserControl>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,20 +17,33 @@ using System.Windows.Shapes;
 
 namespace WpfApplication3
 {
-    /// <summary>
-    /// DirectBindingUserControl.xaml の相互作用ロジック
-    /// </summary>
-    public partial class DirectBindingUserControl : UserControl
+    public class RxpUserControlViewModel
     {
+        public ReactiveProperty<string> TextRxp { get; set; }
+
+        public void Init()
+        {
+            this.TextRxp.Subscribe(x => Console.WriteLine("{0}: {1}", nameof(RxpUserControlViewModel), x));
+        }
+
+        public RxpUserControlViewModel()
+        {
+        }
+    }
+
+    /// <summary>
+    /// UserRxPUserControl.xaml の相互作用ロジック
+    /// </summary>
+    public partial class RxpUserControl : UserControl
+    {
+        private RxpUserControlViewModel _vm = new RxpUserControlViewModel();
+
         #region Text
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register(
                 "Text",
                 typeof(string),
-                typeof(DirectBindingUserControl),
-                new PropertyMetadata(
-                    null,
-                    (d, e) => Console.WriteLine("{0}: {1}", nameof(DirectBindingUserControl), e.NewValue)));
+                typeof(RxpUserControl));
 
         public string Text
         {
@@ -37,11 +52,15 @@ namespace WpfApplication3
         }
         #endregion
 
-        public DirectBindingUserControl()
+        public RxpUserControl()
         {
             InitializeComponent();
 
-            this.DirectBindingUserControlGrid.DataContext = this;
+            this._vm.TextRxp = this.ToReactiveProperty<string>(TextProperty);
+
+            this._vm.Init();
+
+            this.RxpUserControlGrid.DataContext = _vm;
         }
     }
 }

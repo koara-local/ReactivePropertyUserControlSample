@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <TextBox Text="{Binding Path=Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  x:Name="textBox" HorizontalAlignment="Left" Height="97" Margin="35,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="439"/>
+        <local:DirectBindingUserControl Text="{Binding Path=Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="83" Margin="35,121,0,0" VerticalAlignment="Top" Width="439" Background="#FFF5BFBF"/>
+        <local:RxpUserControl Text="{Binding Path=Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="100" Margin="35,209,0,0" VerticalAlignment="Top" Width="439" Background="#FFA8ACD1"/>
     </Grid>
 </Window>
